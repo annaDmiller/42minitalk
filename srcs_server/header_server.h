@@ -4,6 +4,6 @@
 #include "./../libft/ft_printf.h"
 #include "./../libft/get_next_line.h"
 #include <unistd.h>
+#include <signal.h>
 
-typedef int pid_t;
 #endif
