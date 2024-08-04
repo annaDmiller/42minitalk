@@ -7,6 +7,12 @@
 #include <unistd.h>
 #include <signal.h>
 
+char buff[1024];
+
 void    hdl(int sig);
 struct sigaction    init_sig_logic(void);
+
+void    print_buff_and_nl(void);
+void    check_is_buff_full(void);
+void    add_let_to_buff(char let);
 #endif

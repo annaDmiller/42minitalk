@@ -2,7 +2,7 @@
 
 void    hdl(int sig)
 {
-    ft_printf("Received the signal\n");
+
 }
 
 struct sigaction    init_sig_logic(void)

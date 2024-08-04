@@ -8,5 +8,6 @@
 
 void    hdl(int sig);
 struct sigaction    init_sig_logic(void);
-
+void    send_letter(char let, int pid_server);
+void    sending_the_message(char *str, int pid_server);
 #endif
