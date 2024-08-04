@@ -15,6 +15,7 @@ int main(int argc, char **argv)
     if (argc != 3)
         return (ft_putstr_fd("Enter the PID of server and string to print\n", 2), 1);
     PID_server = ft_atoi(*(argv + 1));
+    kill(PID_server, SIGUSR1);
     return (0);
 }
 
