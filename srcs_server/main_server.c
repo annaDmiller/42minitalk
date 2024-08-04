@@ -10,7 +10,9 @@ int main(void)
     ft_printf("%i\n", getpid());
     while(check == 0)
     {
-        pause();
+        ft_putstr_fd("Waiting for signals...", 1);
+        if (!sleep(60))
+            exit(1);
     }
     return (0);
 }
