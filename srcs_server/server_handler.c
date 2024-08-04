@@ -16,11 +16,15 @@ void    hdl(int sig, siginfo_t *info, void *context)
     {
         bit_num = 0;
         if (num_let == 0)
-            return (print_buff_and_nl());
-        check_is_buff_full();
-        add_let_to_buff(num_let);
+        {
+            ft_printf("\n");
+            kill(info->si_pid, SIGUSR2);
+        }
+        else
+            ft_printf("%c", num_let);
         num_let = 0;
     }
+    kill(info->si_pid, SIGUSR1);
     return ;
 }
 
@@ -41,7 +45,7 @@ struct sigaction    init_sig_logic(void)
     return (act);
 }
 
-void    print_buff_and_nl(void)
+/*void    print_buff_and_nl(void)
 {
     ft_printf("%s\n", &(buff_server[0]));
 	ft_bzero(&(buff_server[0]), 50);
@@ -67,4 +71,4 @@ void    add_let_to_buff(char let)
         ind++;
     buff_server[ind] = let;
     return ;
-}
+}*/

@@ -6,8 +6,13 @@
 #include "./../libft/get_next_line.h"
 #include <signal.h>
 
-void    client_hdl(int sig);
-struct sigaction    init_sig_logic(void);
+extern int bit_received;
+
+void    bit_handler(int sig);
+struct sigaction    bit_received_action(void);
+void    mess_handler(int sig);
+struct sigaction    mess_received_action(void);
+
 void    send_letter(char let, int pid_server);
 void    sending_the_message(char *str, int pid_server);
 #endif
