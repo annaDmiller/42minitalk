@@ -8,12 +8,12 @@ void    send_letter(char let, int pid_server)
     num_bit = 0;
     while (num_bit < 8)
     {
-        bit = let >> (8 - num_bit);
+        bit = (let >> (7 - num_bit)) & 1;
         if (bit == 1)
             kill(pid_server, SIGUSR2);
         else
             kill(pid_server, SIGUSR1);
-        usleep(4);
+        usleep(200);
         num_bit++;
     }
     return ;
@@ -42,5 +42,6 @@ int main(int argc, char **argv)
         return (ft_putstr_fd("Enter the PID of server and string to print\n", 2), 1);
     pid_server = ft_atoi(*(argv + 1));
     sending_the_message(*(argv + 2), pid_server);
+    ft_printf("The message is sent\n");
     return (0);
 }

@@ -7,9 +7,9 @@
 #include <unistd.h>
 #include <signal.h>
 
-char buff[1024];
+extern char buff_server[50];
 
-void    hdl(int sig);
+void    hdl(int sig, siginfo_t *info, void *context);
 struct sigaction    init_sig_logic(void);
 
 void    print_buff_and_nl(void);
