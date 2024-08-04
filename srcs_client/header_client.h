@@ -5,4 +5,8 @@
 #include "./../libft/ft_printf.h"
 #include "./../libft/get_next_line.h"
 #include <signal.h>
+
+void    hdl(int sig);
+struct sigaction    init_sig_logic(void);
+
 #endif

@@ -1,36 +1,46 @@
 #include "header_client.h"
 
-struct sigaction    init_sig_logic(void);
-void    hdl(int sig);
-
-void    hdl(int sig)
+void    send_letter(char let, int pid_server)
 {
-    ft_printf("Received the signal\n");
+    int num_bit;
+    int bit;
+
+    num_bit = 0;
+    while (num_bit < 8)
+    {
+        bit = let >> (8 - num_bit);
+        if (bit == 1)
+            kill(pid_server, SIGUSR2);
+        else
+            kill(pid_server, SIGUSR1);
+        usleep(4);
+        num_bit++;
+    }
+    return ;
+}
+
+void    sending_the_message(char *str, int pid_server)
+{
+    size_t  len_mes;
+    size_t  num_let;
+
+    len_mes = ft_strlen(str);
+    num_let = 0;
+    while (num_let <= len_mes)
+    {
+        send_letter(str[num_let], pid_server);
+        num_let++;
+    }
+    return ;
 }
 
 int main(int argc, char **argv)
 {
-    int PID_server;
+    int pid_server;
 
     if (argc != 3)
         return (ft_putstr_fd("Enter the PID of server and string to print\n", 2), 1);
-    PID_server = ft_atoi(*(argv + 1));
-    kill(PID_server, SIGUSR1);
+    pid_server = ft_atoi(*(argv + 1));
+    sending_the_message(*(argv + 2), pid_server);
     return (0);
-}
-
-struct sigaction    init_sig_logic(void)
-{
-    struct sigaction    act;
-    sigset_t            set;
-
-    ft_memset(&act, 0, sizeof(act));
-    act.sa_handler = hdl;
-    sigemptyset(&set);
-    sigaddset(&set, SIGUSR1);
-    sigaddset(&set, SIGUSR2);
-    act.sa_mask = set;
-    sigaction(SIGUSR1, &act, NULL);
-    sigaction(SIGUSR2, &act, NULL);
-    return (act);
 }
