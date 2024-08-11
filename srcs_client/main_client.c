@@ -48,7 +48,9 @@ int main(int argc, char **argv)
     if (argc != 3)
         return (ft_putstr_fd("Enter the PID of server and string to print\n", 2), 1);
     bit_rec = bit_received_action();
+    sigaction(SIGUSR1, &bit_rec, NULL);
     full_mess_rec = mess_received_action();
+    sigaction(SIGUSR2, &full_mess_rec, NULL);
     bit_received = 0;
     pid_server = ft_atoi(*(argv + 1));
     sending_the_message(*(argv + 2), pid_server);

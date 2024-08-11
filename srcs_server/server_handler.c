@@ -36,8 +36,5 @@ struct sigaction    init_sig_logic(void)
     sigaddset(&set, SIGUSR1);
     sigaddset(&set, SIGUSR2);
     act.sa_mask = set;
-    if (sigaction(SIGUSR1, &act, NULL) == -1
-        || sigaction(SIGUSR2, &act, NULL) == -1)
-        exit (EXIT_FAILURE);
     return (act);
 }

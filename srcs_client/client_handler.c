@@ -17,7 +17,6 @@ struct sigaction    bit_received_action(void)
     sigemptyset(&set);
     sigaddset(&set, SIGUSR1);
     act.sa_mask = set;
-    sigaction(SIGUSR1, &act, NULL);
     return (act);
 }
 
@@ -38,6 +37,5 @@ struct sigaction    mess_received_action(void)
     sigemptyset(&set);
     sigaddset(&set, SIGUSR2);
     act.sa_mask = set;
-    sigaction(SIGUSR2, &act, NULL);
     return (act);
 }

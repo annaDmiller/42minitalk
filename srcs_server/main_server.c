@@ -2,6 +2,8 @@
 
 volatile t_state *point_state;
 
+static void    print_messages(void);
+
 int main(void)
 {
     struct sigaction    act;
@@ -9,7 +11,16 @@ int main(void)
 
     init_state(&state);
     act = init_sig_logic();
+    if (sigaction(SIGUSR1, &act, NULL) == -1
+        || sigaction(SIGUSR2, &act, NULL) == -1)
+        exit (EXIT_FAILURE);
     ft_printf("%i\n", getpid());
+    print_messages();
+    return (0);
+}
+
+static void    print_messages(void)
+{
     while(1)
     {
         if (point_state->bit_num == 0 && point_state->client_pid != 0)
@@ -28,7 +39,7 @@ int main(void)
             kill(point_state->client_pid, SIGUSR1);
         usleep(100);
     }
-    return (0);
+    return ;
 }
 
 void    init_state(t_state *state)
