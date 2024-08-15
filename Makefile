@@ -20,6 +20,8 @@ MAKE_FLAGS = --no-print-directory
 
 DIR_LIBFT = libft
 
+LIBFTA = libft/libft.a
+
 FILES_SERVER = main_server.c server_handler.c
 
 DIR_SERVER = srcs_server/
@@ -32,23 +34,23 @@ DIR_CLIENT = srcs_client/
 
 FILES_CLIENT := $(addprefix $(DIR_CLIENT), $(FILES_CLIENT))
 
-.PHONY: all clean fclean library
+.PHONY: all clean fclean
 
-all: library $(NAME_CLIENT) $(NAME_SERVER)
+all: $(NAME_CLIENT) $(NAME_SERVER)
 
-library:
+${LIBFTA}:
 	$(MAKE) $(MAKE_FLAGS) -C $(DIR_LIBFT)
 
-$(NAME_CLIENT): $(FILES_CLIENT)
+$(NAME_CLIENT): $(FILES_CLIENT) ${LIBFTA}
 	$(CC) $(CC_FLAGS) $^ -o $(NAME_CLIENT) $(LIBFT_FLAG)
 
-$(NAME_SERVER): $(FILES_SERVER)
+$(NAME_SERVER): $(FILES_SERVER) ${LIBFTA}
 	$(CC) $(CC_FLAGS) $^ -o $(NAME_SERVER) $(LIBFT_FLAG)
 
 clean:
 	$(RM) $(RM_FLAGS) $(DIR_LIBFT)/*.o $(DIR_CLIENT)*.o $(DIR_SERVER)*.o
 
 fclean: clean
-	$(RM) $(RM_FLAGS) $(DIR_LIBFT)/libft.a $(NAME_CLIENT) $(NAME_SERVER)
+	$(RM) $(RM_FLAGS) $(LIBFTA) $(NAME_CLIENT) $(NAME_SERVER)
 
 re: fclean all
