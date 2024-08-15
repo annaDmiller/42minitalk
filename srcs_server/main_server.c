@@ -1,53 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_server.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amelniko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/15 12:31:47 by amelniko          #+#    #+#             */
+/*   Updated: 2024/08/15 12:35:49 by amelniko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header_server.h"
 
-volatile t_state *point_state;
+volatile t_state	*g_state;
 
-static void    print_messages(void);
+static void	print_messages(void);
+static void	init_state(t_state *state);
 
-int main(void)
+int	main(void)
 {
-    struct sigaction    act;
-    t_state             state;
+	struct sigaction	act;
+	t_state				state;
 
-    init_state(&state);
-    act = init_sig_logic();
-    if (sigaction(SIGUSR1, &act, NULL) == -1
-        || sigaction(SIGUSR2, &act, NULL) == -1)
-        exit (EXIT_FAILURE);
-    ft_printf("%i\n", getpid());
-    print_messages();
-    return (0);
+	init_state(&state);
+	act = init_sig_logic();
+	if (sigaction(SIGUSR1, &act, NULL) == -1
+		|| sigaction(SIGUSR2, &act, NULL) == -1)
+		exit (EXIT_FAILURE);
+	ft_printf("%i\n", getpid());
+	print_messages();
+	return (0);
 }
 
-static void    print_messages(void)
+static void	print_messages(void)
 {
-    while(1)
-    {
-        if (point_state->bit_num == 0 && point_state->client_pid != 0)
-        {
-            if (point_state->check_end_mess == 1)
-            {
-                ft_printf("\n");
-                point_state->check_end_mess = 0;
-                kill(point_state->client_pid, SIGUSR2);
-            }
-            else if (point_state->let != 0)
-                ft_printf("%c", point_state->let);
-            point_state->let = 0;
-        }
-        if (point_state->client_pid != 0)
-            kill(point_state->client_pid, SIGUSR1);
-        usleep(100);
-    }
-    return ;
+	while (1)
+	{
+		if (g_state->bit_num == 0 && g_state->client_pid != 0)
+		{
+			if (g_state->check_end_mess == 1)
+			{
+				ft_printf("\n");
+				g_state->check_end_mess = 0;
+				kill(g_state->client_pid, SIGUSR2);
+			}
+			else if (g_state->let != 0)
+				ft_printf("%c", g_state->let);
+			g_state->let = 0;
+		}
+		if (g_state->client_pid != 0)
+			kill(g_state->client_pid, SIGUSR1);
+		usleep(250);
+	}
+	return ;
 }
 
-void    init_state(t_state *state)
+static void	init_state(t_state *state)
 {
-    state->let = 0;
-    state->bit_num = 0;
-    state->client_pid = 0;
-    state->check_end_mess = 0;
-    point_state = state;
-    return ;
+	state->let = 0;
+	state->bit_num = 0;
+	state->client_pid = 0;
+	state->check_end_mess = 0;
+	g_state = state;
+	return ;
 }

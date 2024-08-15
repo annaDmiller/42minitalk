@@ -1,18 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header_client.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amelniko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/15 12:14:19 by amelniko          #+#    #+#             */
+/*   Updated: 2024/08/15 12:15:59 by amelniko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef HEADER_CLIENT_H
 # define HEADER_CLIENT_H
 # define _GNU_SOURCE
-#include "./../libft/libft.h"
-#include "./../libft/ft_printf.h"
-#include "./../libft/get_next_line.h"
-#include <signal.h>
 
-extern int bit_received;
+# include "./../libft/libft.h"
+# include "./../libft/ft_printf.h"
+# include "./../libft/get_next_line.h"
+# include <signal.h>
 
-void    bit_handler(int sig);
-struct sigaction    bit_received_action(void);
-void    mess_handler(int sig);
-struct sigaction    mess_received_action(void);
+extern volatile int	g_bit_received;
 
-void    send_letter(char let, int pid_server);
-void    sending_the_message(char *str, int pid_server);
+void				bit_handler(int sig);
+struct sigaction	bit_received_action(void);
+void				mess_handler(int sig);
+struct sigaction	mess_received_action(void);
 #endif
