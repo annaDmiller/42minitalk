@@ -26,7 +26,7 @@ int	main(void)
 	act = init_sig_logic();
 	if (sigaction(SIGUSR1, &act, NULL) == -1
 		|| sigaction(SIGUSR2, &act, NULL) == -1)
-		exit (EXIT_FAILURE);
+		error_hdl("sigaction");
 	ft_printf("%i\n", getpid());
 	print_messages();
 	return (0);
@@ -42,14 +42,16 @@ static void	print_messages(void)
 			{
 				ft_printf("\n");
 				g_state->check_end_mess = 0;
-				kill(g_state->client_pid, SIGUSR2);
+				if (kill(g_state->client_pid, SIGUSR2) == -1)
+					error_hdl("kill");
 			}
 			else if (g_state->let != 0)
 				ft_printf("%c", g_state->let);
 			g_state->let = 0;
 		}
 		if (g_state->client_pid != 0)
-			kill(g_state->client_pid, SIGUSR1);
+			if (kill(g_state->client_pid, SIGUSR1) == -1)
+				error_hdl("kill");
 		usleep(250);
 	}
 	return ;

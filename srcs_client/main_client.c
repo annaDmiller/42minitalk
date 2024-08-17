@@ -28,9 +28,15 @@ static void	send_letter(char let, int pid_server)
 		g_bit_received = 0;
 		bit = (let >> (7 - num_bit)) & 1;
 		if (bit == 1)
-			kill(pid_server, SIGUSR2);
+		{
+			if (kill(pid_server, SIGUSR2) == -1)
+				error_hdl("kill");
+		}
 		else
-			kill(pid_server, SIGUSR1);
+		{
+			if (kill(pid_server, SIGUSR1) == -1)
+				error_hdl("kill");
+		}
 		while (!g_bit_received)
 			pause();
 		num_bit++;
@@ -64,11 +70,15 @@ int	main(int argc, char **argv)
 		return (ft_putstr_fd("Enter the PID of server and string to print\n",
 				2), 1);
 	bit_rec = bit_received_action();
-	sigaction(SIGUSR1, &bit_rec, NULL);
+	if (sigaction(SIGUSR1, &bit_rec, NULL) == -1)
+		error_hdl("sigaction");
 	full_mess_rec = mess_received_action();
-	sigaction(SIGUSR2, &full_mess_rec, NULL);
+	if (sigaction(SIGUSR2, &full_mess_rec, NULL) == -1)
+		error_hdl("sigaction");
 	g_bit_received = 0;
 	pid_server = ft_atoi(*(argv + 1));
+	if (pid_server < 1 || pid_server > 4194304)
+		error_hdl("pid");
 	sending_the_message(*(argv + 2), pid_server);
 	return (0);
 }

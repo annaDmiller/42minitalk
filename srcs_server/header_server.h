@@ -32,4 +32,5 @@ extern volatile t_state	*g_state;
 
 void				hdl(int sig, siginfo_t *info, void *context);
 struct sigaction	init_sig_logic(void);
+void    error_hdl(char *cause);
 #endif

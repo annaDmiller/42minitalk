@@ -22,13 +22,13 @@ DIR_LIBFT = libft
 
 LIBFTA = libft/libft.a
 
-FILES_SERVER = main_server.c server_handler.c
+FILES_SERVER = main_server.c server_handler.c errors_handler.c
 
 DIR_SERVER = srcs_server/
 
 FILES_SERVER := $(addprefix $(DIR_SERVER), $(FILES_SERVER))
 
-FILES_CLIENT = main_client.c client_handler.c
+FILES_CLIENT = main_client.c client_handler.c errors_handler.c
 
 DIR_CLIENT = srcs_client/
 

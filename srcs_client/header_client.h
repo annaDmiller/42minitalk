@@ -25,4 +25,5 @@ void				bit_handler(int sig);
 struct sigaction	bit_received_action(void);
 void				mess_handler(int sig);
 struct sigaction	mess_received_action(void);
+void    error_hdl(char *cause);
 #endif
