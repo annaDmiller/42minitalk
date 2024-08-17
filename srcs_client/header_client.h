@@ -6,7 +6,7 @@
 /*   By: amelniko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 12:14:19 by amelniko          #+#    #+#             */
-/*   Updated: 2024/08/15 12:15:59 by amelniko         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:43:11 by amelniko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include "./../libft/get_next_line.h"
 # include <signal.h>
 
-extern volatile int	g_bit_received;
+extern volatile int	g_signal_received;
 
 void				bit_handler(int sig);
 struct sigaction	bit_received_action(void);
 void				mess_handler(int sig);
 struct sigaction	mess_received_action(void);
-void    error_hdl(char *cause);
+void				error_hdl(char *cause);
 #endif

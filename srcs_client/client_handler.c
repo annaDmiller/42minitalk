@@ -15,7 +15,7 @@
 void	bit_handler(int sig)
 {
 	if (sig == SIGUSR1)
-		g_bit_received = 1;
+		g_signal_received = 1;
 	return ;
 }
 
@@ -35,7 +35,10 @@ struct sigaction	bit_received_action(void)
 void	mess_handler(int sig)
 {
 	if (sig == SIGUSR2)
+	{
 		ft_printf("The message is received by the server\n");
+		g_signal_received = 1;
+	}
 	return ;
 }
 

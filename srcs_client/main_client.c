@@ -12,7 +12,7 @@
 
 #include "header_client.h"
 
-volatile int	g_bit_received;
+volatile int	g_signal_received;
 
 static void	sending_the_message(char *str, int pid_server);
 static void	send_letter(char let, int pid_server);
@@ -25,7 +25,7 @@ static void	send_letter(char let, int pid_server)
 	num_bit = 0;
 	while (num_bit < 8)
 	{
-		g_bit_received = 0;
+		g_signal_received = 0;
 		bit = (let >> (7 - num_bit)) & 1;
 		if (bit == 1)
 		{
@@ -37,7 +37,7 @@ static void	send_letter(char let, int pid_server)
 			if (kill(pid_server, SIGUSR1) == -1)
 				error_hdl("kill");
 		}
-		while (!g_bit_received)
+		while (!g_signal_received)
 			pause();
 		num_bit++;
 	}
@@ -56,7 +56,7 @@ static void	sending_the_message(char *str, int pid_server)
 		send_letter(str[num_let], pid_server);
 		num_let++;
 	}
-	g_bit_received = 0;
+	g_signal_received = 0;
 	return ;
 }
 
@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	full_mess_rec = mess_received_action();
 	if (sigaction(SIGUSR2, &full_mess_rec, NULL) == -1)
 		error_hdl("sigaction");
-	g_bit_received = 0;
+	g_signal_received = 0;
 	pid_server = ft_atoi(*(argv + 1));
 	if (pid_server < 1 || pid_server > 4194304)
 		error_hdl("pid");

@@ -6,7 +6,7 @@
 /*   By: amelniko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 12:27:53 by amelniko          #+#    #+#             */
-/*   Updated: 2024/08/15 12:30:27 by amelniko         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:45:17 by amelniko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ extern volatile t_state	*g_state;
 
 void				hdl(int sig, siginfo_t *info, void *context);
 struct sigaction	init_sig_logic(void);
-void    error_hdl(char *cause);
+void				error_hdl(char *cause);
 #endif

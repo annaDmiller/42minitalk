@@ -44,14 +44,17 @@ static void	print_messages(void)
 				g_state->check_end_mess = 0;
 				if (kill(g_state->client_pid, SIGUSR2) == -1)
 					error_hdl("kill");
+				g_state->client_pid = 0;
 			}
 			else if (g_state->let != 0)
 				ft_printf("%c", g_state->let);
 			g_state->let = 0;
 		}
 		if (g_state->client_pid != 0)
+		{
 			if (kill(g_state->client_pid, SIGUSR1) == -1)
 				error_hdl("kill");
+		}
 		usleep(250);
 	}
 	return ;

@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors_handler.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amelniko <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 12:45:30 by amelniko          #+#    #+#             */
+/*   Updated: 2024/08/17 12:47:36 by amelniko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header_server.h"
 
-void    error_hdl(char *cause)
+void	error_hdl(char *cause)
 {
-    if (!ft_strncmp(cause, "sigaction", 10))
-    {
-        write(2, "Sigaction error.\n", 17);
-        exit (EXIT_FAILURE);
-    }
-    if (!ft_strncmp(cause, "pid", 4))
-    {
-        write(2, "PID is beyond the limits.\n", 26);
-        exit (EXIT_FAILURE);
-    }
-    if (!ft_strncmp(cause, "kill", 5))
-    {
-        write(2, "Kill error: incorrect signal, PID or acces.\n", 44);
-        exit (EXIT_FAILURE);
-    }
-    write(2, "Unexpected error.\n", 18);
-    exit (EXIT_FAILURE);
+	if (!ft_strncmp(cause, "sigaction", 10))
+	{
+		write(2, "Sigaction error.\n", 17);
+		exit (EXIT_FAILURE);
+	}
+	if (!ft_strncmp(cause, "pid", 4))
+	{
+		write(2, "PID is beyond the limits.\n", 26);
+		exit (EXIT_FAILURE);
+	}
+	if (!ft_strncmp(cause, "kill", 5))
+	{
+		write(2, "Kill error: incorrect signal, PID or acces.\n", 44);
+		exit (EXIT_FAILURE);
+	}
+	write(2, "Unexpected error.\n", 18);
+	exit (EXIT_FAILURE);
 }
