@@ -26,6 +26,7 @@ typedef struct s_state
 	int	let;
 	int	check_end_mess;
 	int	client_pid;
+	int	bit;
 }		t_state;
 
 extern volatile t_state	*g_state;
